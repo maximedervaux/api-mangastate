@@ -13,7 +13,7 @@ export class Manga {
     @Column({nullable: true})
     author_manga: string
 
-    @Column({nullable: true})
+    @Column({nullable: true,length: 3000})
     description_manga: string
 
     @Column({nullable: true})
