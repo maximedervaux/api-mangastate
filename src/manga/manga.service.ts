@@ -28,15 +28,24 @@ export class MangaService {
   }
 
   async findByTitle(title: string): Promise<Manga[]> {
-    const manga = await this.mangasRepository.find({ where: { title_manga: Like(`%${title}%`) }});
-    
-    if (manga.length>0) {
+    const manga = await this.mangasRepository.find({ where: { title_manga: Like(`%${title}%`) } });
+  
+    if (manga.length > 0) {
       return manga;
     }
-    
-    const newManga = await this.jikanService.fetchAndMapManga(title);
-    const savedManga = await this.mangasRepository.save(newManga);
-    return savedManga;
+  
+    const newMangas = await this.jikanService.fetchAndMapManga(title);
+  
+    const mangasSaved: Manga[] = [];
+    for (const newManga of newMangas) {
+      const existingManga = await this.mangasRepository.findOne({ where: { title_manga: newManga.title_manga } });
+      if (!existingManga) {
+        const savedManga = await this.mangasRepository.save(newManga);
+        mangasSaved.push(savedManga);
+      }
+    }
+  
+    return mangasSaved;
   }
 
   update(id: number, updateMangaDto: UpdateMangaDto) {
