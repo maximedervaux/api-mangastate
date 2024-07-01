@@ -27,8 +27,14 @@ export class MangaService {
     return `This action returns a #${id} manga`;
   }
 
-  async findByTitle(title: string): Promise<Manga[]> {
+  async findByTitle(title){
     const manga = await this.mangasRepository.find({ where: { title_manga: Like(`%${title}%`) } });
+    return manga;
+  }
+
+  
+  async findByTitleExtra(title: string): Promise<Manga[]> {
+    const manga = await this.findByTitle(title)
   
     if (manga.length > 0) {
       return manga;

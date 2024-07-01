@@ -20,9 +20,6 @@ export class Manga {
     @Column({nullable: true})
     cover_image_manga : string 
 
-    @Column({nullable: true})
-    release_date_manga: Date
-
     @ManyToMany(()=> Genre,{eager:true})
     @JoinTable()
     genres : Genre[]
@@ -34,6 +31,10 @@ export class Manga {
     @ManyToMany(()=> Demographic,{eager:true , nullable:true})
     @JoinTable()
     demographics : Demographic[]
+
+    @ManyToMany(()=>Auteur,{eager:true , nullable:true})
+    @JoinTable()
+    auteurs: Auteur[]
 
     @Column({nullable:true})
     chapter: number
@@ -47,9 +48,7 @@ export class Manga {
     @Column({nullable:true})
     date_fin : Date
 
-    @ManyToMany(()=>Auteur,{eager:true , nullable:true})
-    @JoinTable()
-    auteurs: Auteur[]
+    
 
 
 

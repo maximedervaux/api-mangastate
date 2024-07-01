@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Logger, Query } from '@nestjs/common';
 import { MangaService } from './manga.service';
 import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
@@ -25,9 +25,15 @@ export class MangaController {
   // }
 
   @Get(':title')
-  async findByTitle(@Param('title') title: string) {
+  async findByTitle(@Param('title') title: string 
+                  ,@Query('extra') extra : boolean) {
     this.logger.verbose('Titre recherche : '+title)
-    const resultat = await this.mangaService.findByTitle(title);
+    let resultat
+    if (extra){
+     resultat = await this.mangaService.findByTitleExtra(title);
+    }else{
+      resultat = await this.mangaService.findByTitle(title)
+    }
     return resultat
   }
 

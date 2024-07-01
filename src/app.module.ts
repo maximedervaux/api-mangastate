@@ -12,17 +12,21 @@ import { DemographicModule } from './demographic/demographic.module';
 import { Auteur } from './auteur/entities/auteur.entity';
 import { Theme } from './theme/entities/theme.entity';
 import { Demographic } from './demographic/entities/demographic.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,}
+    ),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'mangastate',
-      entities: [Manga,Genre,Auteur,Theme,Demographic ],
+      host: process.env.DATABASE_HOST,
+      port: +(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [Manga,Genre,Auteur,Theme,Demographic],
       synchronize: true,
     }),
     HttpModule,
