@@ -6,6 +6,7 @@ import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { JikanService } from 'src/jikan/jikan.service';
+import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class MangaService {
@@ -19,12 +20,14 @@ export class MangaService {
     return 'This action adds a new manga';
   }
 
-  findAll() : Promise<Manga[]>{
-    return this.mangasRepository.find();
+  async findAll(options: IPaginationOptions): Promise<Pagination<Manga>> {
+    return paginate<Manga>(this.mangasRepository, options);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} manga`;
+  async findOne(id: number) {
+
+    let result = this.mangasRepository.findOneBy({id_manga : id});
+    return result;
   }
 
   async findByTitle(title){

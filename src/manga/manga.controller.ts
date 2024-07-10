@@ -3,6 +3,7 @@ import { MangaService } from './manga.service';
 import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { Manga } from './entities/manga.entity';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('manga')
 export class MangaController {
@@ -15,14 +16,15 @@ export class MangaController {
   }
 
   @Get()
-  findAll() : Promise<Manga[]>{
-    return this.mangaService.findAll();
+  async findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<Pagination<Manga>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.mangaService.findAll({ page, limit });
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.mangaService.findOne(+id);
-  // }
+   @Get(':id')
+   findOne(@Param('id') id: string) {
+     return this.mangaService.findOne(+id);
+   }
 
   @Get(':title')
   async findByTitle(@Param('title') title: string 
