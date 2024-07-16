@@ -5,7 +5,7 @@ import { Genre } from "src/genre/entities/genre.entity"
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, ManyToOne, Unique } from "typeorm"
 
 @Entity()
-@Unique(["title_manga","description_manga"])
+@Unique(["title_manga","auteurs"])
 export class Manga {
 
     @PrimaryGeneratedColumn()
