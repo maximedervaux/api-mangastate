@@ -21,14 +21,13 @@ export class MangaController {
     return this.mangaService.findAll({ page, limit });
   }
 
-   @Get(':id')
-   findOne(@Param('id') id: string) {
-     return this.mangaService.findOne(+id);
-   }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.mangaService.findOne(+id);
+  }
 
-  @Get(':title')
-  async findByTitle(@Param('title') title: string 
-                  ,@Query('extra') extra : boolean) {
+  @Get('title/:title')
+  async findByTitle(@Param('title') title: string ,@Query('extra') extra : boolean) {
     this.logger.verbose('Titre recherche : '+title)
     let resultat
     if (extra){
