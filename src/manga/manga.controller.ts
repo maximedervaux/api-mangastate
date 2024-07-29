@@ -29,13 +29,13 @@ export class MangaController {
   }
 
   @Get('title/:title')
-  async findByTitle(@Param('title') title: string ,@Query('extra') extra : boolean) {
+  async findByTitle(@Param('title') title: string ,@Query('extra') extra : boolean , @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
     this.logger.verbose('Titre recherche : '+title)
     let resultat
     if (extra){
-     resultat = await this.mangaService.findByTitleExtra(title);
+     resultat = await this.mangaService.findByTitleExtra(title,{page,limit});
     }else{
-      resultat = await this.mangaService.findByTitle(title)
+      resultat = await this.mangaService.findByTitle(title,{page,limit})
     }
     return resultat
   }

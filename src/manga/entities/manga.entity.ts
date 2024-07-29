@@ -52,6 +52,8 @@ export class Manga {
     @OneToMany(() => Tome , (tome) => tome.manga)
     tomes : Tome[]
     
+    @Column({nullable:true})
+    prix : number
 
 
 

@@ -6,7 +6,7 @@ import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { JikanService } from 'src/jikan/jikan.service';
-import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, Pagination, paginate, paginateRaw, paginateRawAndEntities } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class MangaService {
@@ -30,16 +30,18 @@ export class MangaService {
     return result;
   }
 
-  async findByTitle(title){
-    const manga = await this.mangasRepository.find({ where: { title_manga: Like(`%${title}%`) } });
-    return manga;
+  async findByTitle(title: string, paginateOptions: IPaginationOptions): Promise<Pagination<Manga>> {
+    const queryBuilder = this.mangasRepository.createQueryBuilder('manga');
+    queryBuilder.where('manga.title_manga LIKE :title', { title: `%${title}%` });
+
+    return paginate<Manga>(queryBuilder, paginateOptions);
   }
 
   
-  async findByTitleExtra(title: string): Promise<Manga[]> {
-    const manga = await this.findByTitle(title)
+  async findByTitleExtra(title: string ,paginateOptions: IPaginationOptions) {
+    const manga = await this.findByTitle(title,paginateOptions)
   
-    if (manga.length > 0) {
+    if (manga.items.length > 0) {
       return manga;
     }
   
