@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DemographicService } from './demographic.service';
 import { CreateDemographicDto } from './dto/create-demographic.dto';
 import { UpdateDemographicDto } from './dto/update-demographic.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('demographic')
+@ApiTags('Demographic')
 export class DemographicController {
   constructor(private readonly demographicService: DemographicService) {}
 

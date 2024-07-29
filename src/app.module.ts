@@ -13,6 +13,8 @@ import { Auteur } from './auteur/entities/auteur.entity';
 import { Theme } from './theme/entities/theme.entity';
 import { Demographic } from './demographic/entities/demographic.entity';
 import { ConfigModule } from '@nestjs/config';
+import { TomesModule } from './tomes/tomes.module';
+import { Tome } from './tomes/entities/tome.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       username: 'root',
       password: 'test',
       database: 'mangastate',
-      entities: [Manga,Genre,Auteur,Theme,Demographic],
+      entities: [Manga,Genre,Auteur,Theme,Demographic,Tome],
       synchronize: true,
       logging:true
     }),
@@ -33,6 +35,7 @@ import { ConfigModule } from '@nestjs/config';
     AuteurModule,
     ThemeModule,
     DemographicModule,
+    TomesModule,
   ],
   providers: [JikanService],
 })

@@ -2,6 +2,7 @@ import { Theme } from './../../theme/entities/theme.entity';
 import { Auteur } from "src/auteur/entities/auteur.entity"
 import { Demographic } from 'src/demographic/entities/demographic.entity';
 import { Genre } from "src/genre/entities/genre.entity"
+import { Tome } from 'src/tomes/entities/tome.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, ManyToOne, Unique } from "typeorm"
 
 @Entity()
@@ -48,6 +49,8 @@ export class Manga {
     @Column({nullable:true})
     date_fin : Date
 
+    @OneToMany(() => Tome , (tome) => tome.manga)
+    tomes : Tome[]
     
 
 

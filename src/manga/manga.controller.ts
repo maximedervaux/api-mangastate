@@ -4,8 +4,10 @@ import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { Manga } from './entities/manga.entity';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('manga')
+@ApiTags('Manga')
 export class MangaController {
   private logger = new Logger('MangaController')
   constructor(private readonly mangaService: MangaService) {}

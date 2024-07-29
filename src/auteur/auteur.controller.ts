@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AuteurService } from './auteur.service';
 import { CreateAuteurDto } from './dto/create-auteur.dto';
 import { UpdateAuteurDto } from './dto/update-auteur.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auteur')
+@ApiTags('Auteur')
 export class AuteurController {
   constructor(private readonly auteurService: AuteurService) {}
 
