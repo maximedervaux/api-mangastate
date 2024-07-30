@@ -29,14 +29,15 @@ export class MangaController {
   }
 
   @Get('title/:title')
-  async findByTitle(@Param('title') title: string ,@Query('extra') extra : boolean , @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+  async findByTitle(@Param('title') title: string , @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
     this.logger.verbose('Titre recherche : '+title)
-    let resultat
-    if (extra){
-     resultat = await this.mangaService.findByTitleExtra(title,{page,limit});
-    }else{
-      resultat = await this.mangaService.findByTitle(title,{page,limit})
-    }
+    let resultat = await this.mangaService.findByTitle(title,{page,limit})
+    return resultat
+  }
+
+  @Get('jikan/:title')
+  async getNewManga(@Param('title') title: string ){
+    let resultat = await this.mangaService.findByTitleExtra(title);
     return resultat
   }
 

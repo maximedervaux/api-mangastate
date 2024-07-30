@@ -38,13 +38,8 @@ export class MangaService {
   }
 
   
-  async findByTitleExtra(title: string ,paginateOptions: IPaginationOptions) {
-    const manga = await this.findByTitle(title,paginateOptions)
-  
-    if (manga.items.length > 0) {
-      return manga;
-    }
-  
+  async findByTitleExtra(title: string) {
+ 
     const newMangas = await this.jikanService.fetchAndMapManga(title);
   
     const mangasSaved: Manga[] = [];
