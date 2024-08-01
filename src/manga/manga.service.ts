@@ -21,7 +21,16 @@ export class MangaService {
   }
 
   async findAll(options: IPaginationOptions): Promise<Pagination<Manga>> {
-    return paginate<Manga>(this.mangasRepository, options);
+    const subquery = this.mangasRepository.createQueryBuilder('mangasensible')
+      .leftJoin('mangasensible.genres', 'genreSensible')
+      .select('mangasensible.id_manga')
+      .where('genreSensible.sensible_genre = :sensible', { sensible: true });
+
+    const queryBuilder = this.mangasRepository.createQueryBuilder('manga')
+      .where('manga.id_manga NOT IN (' + subquery.getQuery() + ')')
+      .setParameters(subquery.getParameters());
+
+    return paginate<Manga>(queryBuilder, options);
   }
 
   async findOne(id: number) {
@@ -31,8 +40,16 @@ export class MangaService {
   }
 
   async findByTitle(title: string, paginateOptions: IPaginationOptions): Promise<Pagination<Manga>> {
-    const queryBuilder = this.mangasRepository.createQueryBuilder('manga');
-    queryBuilder.where('manga.title_manga LIKE :title', { title: `%${title}%` });
+   
+    const subquery = this.mangasRepository.createQueryBuilder('mangasensible')
+    .leftJoin('mangasensible.genres', 'genreSensible')
+    .select('mangasensible.id_manga')
+    .where('genreSensible.sensible_genre = :sensible', { sensible: true });
+
+  const queryBuilder = this.mangasRepository.createQueryBuilder('manga')
+    .where('manga.id_manga NOT IN (' + subquery.getQuery() + ')')
+    .setParameters(subquery.getParameters())
+    .andWhere('manga.title_manga LIKE :title', { title: `%${title}%` });
 
     return paginate<Manga>(queryBuilder, paginateOptions);
   }

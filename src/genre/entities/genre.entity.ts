@@ -10,4 +10,9 @@ export class Genre {
     @Column()
     name_genre: string
 
+    @Column({default: false})
+    sensible_genre: boolean
+
+    @ManyToMany(() => Manga, manga => manga.genres)
+    mangas: Manga[];
 }

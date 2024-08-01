@@ -21,7 +21,7 @@ export class Manga {
     @Column({nullable: true})
     cover_image_manga : string 
 
-    @ManyToMany(()=> Genre,{eager:true})
+    @ManyToMany(()=> Genre, genre =>genre.mangas ,{eager:true})
     @JoinTable()
     genres : Genre[]
 
