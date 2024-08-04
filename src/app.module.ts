@@ -16,6 +16,9 @@ import { Theme } from './theme/entities/theme.entity';
 import { Demographic } from './demographic/entities/demographic.entity';
 import { TomesModule } from './tomes/tomes.module';
 import { Tome } from './tomes/entities/tome.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -29,7 +32,7 @@ import { Tome } from './tomes/entities/tome.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Manga, Genre, Auteur, Theme, Demographic, Tome],
+      entities: [Manga, Genre, Auteur, Theme, Demographic, Tome,User],
       synchronize: true,
       logging: true,
     }),
@@ -40,6 +43,8 @@ import { Tome } from './tomes/entities/tome.entity';
     ThemeModule,
     DemographicModule,
     TomesModule,
+    AuthModule,
+    UsersModule,
   ],
   providers: [JikanService],
 })
