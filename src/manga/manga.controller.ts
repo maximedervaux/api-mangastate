@@ -9,7 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('manga')
 @ApiTags('Manga')
 export class MangaController {
-  private logger = new Logger('MangaController')
+  private logger = new Logger('MangaController');
   constructor(private readonly mangaService: MangaService) {}
 
   @Post()
@@ -23,22 +23,29 @@ export class MangaController {
     return this.mangaService.findAll({ page, limit });
   }
 
+
+  @Get('newest')
+  async findNewest(): Promise<Manga[]> {
+    this.logger.log('Fetching newest mangas');
+    return this.mangaService.findNewest();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.mangaService.findOne(+id);
   }
 
   @Get('title/:title')
-  async findByTitle(@Param('title') title: string , @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
-    this.logger.verbose('Titre recherche : '+title)
-    let resultat = await this.mangaService.findByTitle(title,{page,limit})
-    return resultat
+  async findByTitle(@Param('title') title: string, @Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+    this.logger.verbose('Titre recherche : ' + title);
+    let resultat = await this.mangaService.findByTitle(title, { page, limit });
+    return resultat;
   }
 
   @Get('jikan/:title')
-  async getNewManga(@Param('title') title: string ){
+  async getNewManga(@Param('title') title: string) {
     let resultat = await this.mangaService.findByTitleExtra(title);
-    return resultat
+    return resultat;
   }
 
   @Patch(':id')

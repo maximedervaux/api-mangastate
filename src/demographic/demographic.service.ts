@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDemographicDto } from './dto/create-demographic.dto';
 import { UpdateDemographicDto } from './dto/update-demographic.dto';
+import { Demographic } from './entities/demographic.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DemographicService {
+  
+  constructor(
+    @InjectRepository(Demographic)
+    private demographicRepository: Repository<Demographic>,
+  ){}
+
+
   create(createDemographicDto: CreateDemographicDto) {
     return 'This action adds a new demographic';
   }
 
   findAll() {
-    return `This action returns all demographic`;
+    return this.demographicRepository.find();
   }
 
   findOne(id: number) {

@@ -2,7 +2,7 @@ import { Injectable} from '@nestjs/common';
 import { CreateMangaDto } from './dto/create-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { Manga } from './entities/manga.entity';
-import { Like, Repository } from 'typeorm';
+import { IsNull, Like, Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { JikanService } from 'src/jikan/jikan.service';
@@ -80,5 +80,12 @@ export class MangaService {
   }
 
 
-
+  async findNewest(){
+    const recentMangas = await this.mangasRepository.createQueryBuilder('manga')
+    .where('manga.date_deb IS NOT NULL')
+    .orderBy('manga.date_deb', 'DESC')
+    .take(20)
+    .getMany();
+  return recentMangas;
+  }
 }
