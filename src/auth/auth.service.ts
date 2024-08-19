@@ -22,4 +22,9 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
+
+
+  async getUserProfil(username) {
+     return this.usersService.findOne(username)
+  }
 }

@@ -1,8 +1,10 @@
+import { userInfo } from 'os';
 import { Theme } from './../../theme/entities/theme.entity';
 import { Auteur } from "src/auteur/entities/auteur.entity"
 import { Demographic } from 'src/demographic/entities/demographic.entity';
 import { Genre } from "src/genre/entities/genre.entity"
 import { Tome } from 'src/tomes/entities/tome.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, ManyToOne, Unique } from "typeorm"
 
 @Entity()

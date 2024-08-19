@@ -36,7 +36,7 @@ export class AuthController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'User not authenticated',
   })
-  getProfile(@Req() req: Request) {
-    return "ok"; 
+  getProfile(@Request() req) {
+    return this.authService.getUserProfil(req.user.username);
   }
 }

@@ -1,3 +1,5 @@
+import { Manga } from './../../manga/entities/manga.entity';
+import { Tome } from './../../tomes/entities/tome.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, ManyToOne, Unique } from "typeorm"
 
 @Entity()
@@ -12,6 +14,15 @@ export class User {
 
     @Column()
     password: string
+
+    @ManyToMany(()=> Manga)
+    mangas : Manga
+
+    @Column({nullable:true})
+    profilePicture : string
+
+    @Column({nullable:true})
+    birthday : Date 
 
 
 }
