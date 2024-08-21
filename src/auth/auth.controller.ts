@@ -4,6 +4,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SignInDto } from './dto/signin.dto'; // Assurez-vous que le chemin est correct
 import { AuthGuard } from './auth.guard';
 import { Request } from '@nestjs/common'; // Utilisez cette importation pour NestJS
+import { User } from 'src/users/entities/user.entity';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -39,4 +40,19 @@ export class AuthController {
   getProfile(@Request() req) {
     return this.authService.getUserProfil(req.user.username);
   }
+
+  @Post('register')
+  @ApiOperation({ summary: 'Register a new user' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User registered successfully',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'User not authenticated',
+  })
+  registerUser(@Body() user:User) {
+    return this.authService.registerUser(user);
+  }
+
 }

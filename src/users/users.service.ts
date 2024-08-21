@@ -17,5 +17,9 @@ export class UsersService {
         where: {username:username}
     });
   }
+
+  async create(user: User): Promise<User> {
+    return this.userRepository.save(user);
+  }
   
 }

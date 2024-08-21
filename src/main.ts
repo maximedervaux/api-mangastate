@@ -6,7 +6,10 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: 'localhost:5173/connexion',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  });
   const config = new DocumentBuilder()
     .setTitle('MangAstate')
     .setDescription('Api de MangAstate')
