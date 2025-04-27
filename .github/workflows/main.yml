@@ -3,7 +3,7 @@ name: Deploy to Raspberry Pi
 on:
   push:
     branches:
-      - master 
+      - master
 
 jobs:
   deploy:
@@ -21,8 +21,8 @@ jobs:
     - name: Deploy to Raspberry Pi
       run: |
         ssh -o StrictHostKeyChecking=no pi@82.66.21.68 << 'EOF'
-          cd /home/pi/api-mangastate 
-          git pull origin main 
-          docker-compose down 
-          docker-compose up -d --build 
+          cd /home/pi/api-mangastate
+          git pull origin main
+          docker-compose down
+          docker-compose up -d --build
         EOF
