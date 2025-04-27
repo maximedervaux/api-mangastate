@@ -10,6 +10,8 @@ services:
       MYSQL_DATABASE: mangadb
       MYSQL_USER: devuser
       MYSQL_PASSWORD: devpass
+    network_mode: "host" 
+
     ports:
       - "3306:3306"
     volumes:
