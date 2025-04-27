@@ -22,7 +22,7 @@ services:
     container_name: nest-api
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3000:3001"
     depends_on:
       - db
     environment:
