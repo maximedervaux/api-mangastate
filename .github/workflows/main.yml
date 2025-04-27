@@ -24,5 +24,6 @@ jobs:
           cd /home/mdervaux/api-mangastate
           git pull origin main
           docker-compose down
-          docker-compose up -d --build
+          docker-compose build  # Force rebuild of Docker images
+          docker-compose up -d 
         EOF
