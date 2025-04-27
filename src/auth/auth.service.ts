@@ -26,7 +26,10 @@ export class AuthService {
     };
   }
 
-
+  async registerUser(user) {
+    return this.usersService.create(user)
+  }
+  
   async getUserProfil(username) {
      return this.usersService.findOne(username)
   }

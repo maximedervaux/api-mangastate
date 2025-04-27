@@ -23,6 +23,7 @@ export class UsersService {
   }
 
   async create(user: User): Promise<User> {
+<<<<<<< HEAD
     const newUser = this.userRepository.create(user);
     return this.userRepository.save(newUser);
   }
@@ -53,4 +54,9 @@ export class UsersService {
     return userWithMangas.mangas;
   }
 
+=======
+    return this.userRepository.save(user);
+  }
+  
+>>>>>>> 4d525bcf458c4b7d8c2e1ae8896ba62087aeb784
 }
