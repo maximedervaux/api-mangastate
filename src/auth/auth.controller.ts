@@ -4,6 +4,8 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SignInDto } from './dto/signin.dto'; // Assurez-vous que le chemin est correct
 import { AuthGuard } from './auth.guard';
 import { Request } from '@nestjs/common'; // Utilisez cette importation pour NestJS
+import { User } from 'src/users/entities/user.entity';
+import { SignUpDto } from './dto/signup.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -38,5 +40,14 @@ export class AuthController {
   })
   getProfile(@Request() req) {
     return this.authService.getUserProfil(req.user.username);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post("signup")
+  @ApiOperation({ summary: "User Signup" })
+  signUp(@Body() signUpDto: SignUpDto) {
+ 
+
+    return this.authService.signUp(signUpDto);
   }
 }

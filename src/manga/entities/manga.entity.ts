@@ -57,6 +57,8 @@ export class Manga {
     @Column({nullable:true})
     prix : number
 
+    @ManyToMany(() => User, (user) => user.mangas)  
+    users: User[];
 
 
 

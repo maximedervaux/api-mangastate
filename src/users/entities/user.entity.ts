@@ -15,8 +15,9 @@ export class User {
     @Column()
     password: string
 
-    @ManyToMany(()=> Manga)
-    mangas : Manga
+    @ManyToMany(() => Manga, (manga) => manga.users)  
+    @JoinTable()  
+    mangas: Manga[];
 
     @Column({nullable:true})
     profilePicture : string
