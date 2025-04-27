@@ -5,10 +5,7 @@ import { SignInDto } from './dto/signin.dto'; // Assurez-vous que le chemin est 
 import { AuthGuard } from './auth.guard';
 import { Request } from '@nestjs/common'; // Utilisez cette importation pour NestJS
 import { User } from 'src/users/entities/user.entity';
-<<<<<<< HEAD
 import { SignUpDto } from './dto/signup.dto';
-=======
->>>>>>> 4d525bcf458c4b7d8c2e1ae8896ba62087aeb784
 
 @ApiTags('auth')
 @Controller('auth')
@@ -45,7 +42,6 @@ export class AuthController {
     return this.authService.getUserProfil(req.user.username);
   }
 
-<<<<<<< HEAD
   @HttpCode(HttpStatus.OK)
   @Post("signup")
   @ApiOperation({ summary: "User Signup" })
@@ -54,20 +50,4 @@ export class AuthController {
 
     return this.authService.signUp(signUpDto);
   }
-=======
-  @Post('register')
-  @ApiOperation({ summary: 'Register a new user' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'User registered successfully',
-  })
-  @ApiResponse({
-    status: HttpStatus.UNAUTHORIZED,
-    description: 'User not authenticated',
-  })
-  registerUser(@Body() user:User) {
-    return this.authService.registerUser(user);
-  }
-
->>>>>>> 4d525bcf458c4b7d8c2e1ae8896ba62087aeb784
 }
