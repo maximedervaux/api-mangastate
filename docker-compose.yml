@@ -29,7 +29,7 @@ services:
       DATABASE_USER: devuser
       DATABASE_PASSWORD: devpass
       DATABASE_NAME: mangadb
-    command: npm run start:dev # adapte si besoin
+    
 
 volumes:
   db_data:
